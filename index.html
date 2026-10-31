@@ -1,120 +1,159 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en-IN">
 <head>
-<meta charset="UTF-8"> 
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Free online calculators and text tools. Fast, simple and easy to use."> 
-  <meta name="google-site-verification" content="m6hhTJaH3H7chUAZrXBqmNWpmI3IE5PdX39MbmyieDY" />
-<title>QuickTools Hub - Free Online Tools</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="description" content="Use free online tools at QuickTools Hub: GST calculator, percentage calculator, discount calculator, age calculator, word counter and text case converter. Fast, simple and mobile-friendly.">
+<meta name="robots" content="index,follow">
+<meta name="theme-color" content="#172554">
+<link rel="canonical" href="https://hktools-design.github.io/quicktools-hub/">
+<title>QuickTools Hub - Free Online Calculators & Text Tools</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,sans-serif;background:#f4f6fb;color:#172033}
-header{background:#172554;color:white;padding:25px 16px;text-align:center}
-header h1{margin:0;font-size:30px}
-header p{color:#dbeafe}
-main{max-width:950px;margin:25px auto;padding:15px}
-.search{width:100%;padding:14px;border:1px solid #ccd3df;border-radius:10px;font-size:16px}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Arial,Helvetica,sans-serif;background:#f4f6fb;color:#172033;line-height:1.6}
+header{background:linear-gradient(135deg,#172554,#1e40af);color:#fff;padding:34px 16px;text-align:center}
+header h1{margin:0;font-size:clamp(26px,4vw,38px)}
+header p{color:#dbeafe;margin:8px 0 0}
+main{max-width:1000px;margin:26px auto;padding:0 16px}
+.search{width:100%;padding:14px;border:1px solid #ccd3df;border-radius:10px;font-size:16px;background:#fff}
 .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:20px 0}
-.card{background:white;border:1px solid #e0e5ee;border-radius:12px;padding:18px 10px;cursor:pointer;text-align:center;font-weight:bold}
+.card{background:#fff;border:1px solid #e0e5ee;border-radius:12px;padding:16px 10px;cursor:pointer;text-align:center;font-weight:bold;color:#172033}
 .card:hover,.card.active{border-color:#2563eb;background:#eff6ff}
-.panel{background:white;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0000000b}
-.panel h2{margin-top:0}
-input,textarea,select{width:100%;padding:12px;margin:8px 0 14px;border:1px solid #ccd3df;border-radius:8px;font-size:16px}
+.panel,.content-card{background:#fff;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0000000b;margin-bottom:22px}
+.panel h2,.content-card h2{margin-top:0;color:#172554}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 14px;border:1px solid #ccd3df;border-radius:8px;font-size:16px;background:white}
 textarea{min-height:120px;resize:vertical}
 button{padding:12px 18px;border:0;border-radius:8px;background:#2563eb;color:white;font-size:15px;cursor:pointer}
 button:hover{background:#1d4ed8}
 .result{margin-top:15px;padding:14px;background:#eff6ff;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
-footer{text-align:center;padding:25px;color:#64748b}
-footer a{color:#2563eb;margin:5px}
-.hidden{display:none}
+.hidden{display:none!important}
+.tool-intro{color:#475569}
+.content-card a{color:#1d4ed8}
+.faq details{padding:12px 0;border-bottom:1px solid #e5e7eb}
+.faq summary{font-weight:bold;cursor:pointer}
+footer{text-align:center;padding:28px 16px;color:#64748b}
+footer a{color:#2563eb;margin:5px 10px}
+.small{font-size:14px;color:#64748b}
+@media(max-width:600px){header{padding:26px 12px}.panel,.content-card{padding:17px}.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 </head>
 <body>
-
 <header>
 <h1>⚡ QuickTools Hub</h1>
-<p>Free Online Tools – Fast, Simple & Easy</p>
+<p>Free Online Calculators & Text Tools — Fast, Simple & Easy</p>
 </header>
 
 <main>
-<input class="search" id="search" placeholder="Search a tool..." oninput="filterTools()">
+<label for="search"><strong>Find a tool</strong></label>
+<input class="search" id="search" placeholder="Search GST, percentage, age..." oninput="filterTools()" aria-label="Search tools">
 
-<div class="grid" id="tools">
-<div class="card active" data-tool="word" onclick="showTool('word',this)">📝 Word Counter</div>
-<div class="card" data-tool="case" onclick="showTool('case',this)">🔠 Case Converter</div>
-<div class="card" data-tool="percent" onclick="showTool('percent',this)">📊 Percentage</div>
-<div class="card" data-tool="gst" onclick="showTool('gst',this)">💰 GST Calculator</div>
-<div class="card" data-tool="discount" onclick="showTool('discount',this)">🏷️ Discount</div>
-<div class="card" data-tool="age" onclick="showTool('age',this)">🎂 Age Calculator</div>
-</div>
+<nav class="grid" id="tools" aria-label="Available online tools">
+<button class="card active" data-tool="word" onclick="showTool('word',this)">📝 Word Counter</button>
+<button class="card" data-tool="case" onclick="showTool('case',this)">🔠 Case Converter</button>
+<button class="card" data-tool="percent" onclick="showTool('percent',this)">📊 Percentage Calculator</button>
+<button class="card" data-tool="gst" onclick="showTool('gst',this)">💰 GST Calculator</button>
+<button class="card" data-tool="discount" onclick="showTool('discount',this)">🏷️ Discount Calculator</button>
+<button class="card" data-tool="age" onclick="showTool('age',this)">🎂 Age Calculator</button>
+</nav>
 
 <div class="panel">
-
 <section id="word">
-<h2>Word Counter</h2>
-<p>Count words, characters and sentences in your text.</p>
-<textarea id="text" placeholder="Type or paste your text here..." oninput="countWords()"></textarea>
-<div class="result" id="wordResult">Words: 0 | Characters: 0 | Sentences: 0</div>
+<h2>Free Online Word Counter</h2>
+<p class="tool-intro">Count words, characters and sentences instantly. Paste or type your text below to get a quick count.</p>
+<textarea id="text" placeholder="Type or paste your text here..." oninput="countWords()" aria-label="Text to count"></textarea>
+<div class="result" id="wordResult" aria-live="polite">Words: 0 | Characters: 0 | Sentences: 0</div>
 </section>
 
 <section id="case" class="hidden">
-<h2>Text Case Converter</h2>
-<textarea id="caseText" placeholder="Enter your text..."></textarea>
+<h2>Free Text Case Converter</h2>
+<p class="tool-intro">Convert text to uppercase, lowercase or title case in seconds.</p>
+<textarea id="caseText" placeholder="Enter your text..." aria-label="Text to convert"></textarea>
 <button onclick="convert('upper')">UPPERCASE</button>
 <button onclick="convert('lower')">lowercase</button>
 <button onclick="convert('title')">Title Case</button>
-<div class="result" id="caseResult"></div>
+<div class="result" id="caseResult" aria-live="polite"></div>
 </section>
 
 <section id="percent" class="hidden">
-<h2>Percentage Calculator</h2>
-<label>What is the percentage?</label>
-<input type="number" id="percentValue" placeholder="Enter percentage">
-<label>Of which number?</label>
-<input type="number" id="percentTotal" placeholder="Enter total">
-<button onclick="percentage()">Calculate</button>
-<div class="result" id="percentResult">Your answer will appear here.</div>
+<h2>Online Percentage Calculator</h2>
+<p class="tool-intro">Calculate what percentage of a number is, quickly and accurately. Example: find 18% of 500.</p>
+<label for="percentValue">Percentage (%)</label>
+<input type="number" id="percentValue" placeholder="e.g. 18" min="0" step="any">
+<label for="percentTotal">Number</label>
+<input type="number" id="percentTotal" placeholder="e.g. 500" step="any">
+<button onclick="percentage()">Calculate Percentage</button>
+<div class="result" id="percentResult" aria-live="polite">Your answer will appear here.</div>
 </section>
 
 <section id="gst" class="hidden">
-<h2>GST Calculator</h2>
-<label>Amount (₹)</label>
-<input type="number" id="gstAmount" placeholder="Enter amount">
-<label>GST Rate</label>
+<h2>GST Calculator India</h2>
+<p class="tool-intro">Calculate Goods and Services Tax (GST) on an amount using common GST rates in India. Enter the base amount and select a rate to calculate tax and total price.</p>
+<label for="gstAmount">Amount before GST (₹)</label>
+<input type="number" id="gstAmount" placeholder="Enter amount" min="0" step="any">
+<label for="gstRate">GST Rate</label>
 <select id="gstRate">
-<option value="5">5%</option>
-<option value="12">12%</option>
-<option value="18" selected>18%</option>
-<option value="28">28%</option>
+<option value="5">5%</option><option value="12">12%</option><option value="18" selected>18%</option><option value="28">28%</option>
 </select>
 <button onclick="gstCalc()">Calculate GST</button>
-<div class="result" id="gstResult">Your answer will appear here.</div>
+<div class="result" id="gstResult" aria-live="polite">Your GST and total amount will appear here.</div>
+<p class="small">This calculator provides an arithmetic estimate. Confirm the applicable GST rate for your goods or services with official guidance or a tax professional.</p>
 </section>
 
 <section id="discount" class="hidden">
-<h2>Discount Calculator</h2>
-<label>Original Price (₹)</label>
-<input type="number" id="price" placeholder="Enter price">
-<label>Discount (%)</label>
-<input type="number" id="discountValue" placeholder="Enter discount">
-<button onclick="discountCalc()">Calculate</button>
-<div class="result" id="discountResult">Your answer will appear here.</div>
+<h2>Online Discount Calculator</h2>
+<p class="tool-intro">Find the discount amount and final sale price. Useful for quickly calculating percentage discounts while shopping.</p>
+<label for="price">Original Price (₹)</label>
+<input type="number" id="price" placeholder="Enter original price" min="0" step="any">
+<label for="discountValue">Discount (%)</label>
+<input type="number" id="discountValue" placeholder="e.g. 20" min="0" max="100" step="any">
+<button onclick="discountCalc()">Calculate Discount</button>
+<div class="result" id="discountResult" aria-live="polite">Your discounted price will appear here.</div>
 </section>
 
 <section id="age" class="hidden">
 <h2>Age Calculator</h2>
-<label>Date of Birth</label>
+<p class="tool-intro">Calculate your age in years, months and days using your date of birth.</p>
+<label for="dob">Date of Birth</label>
 <input type="date" id="dob">
 <button onclick="ageCalc()">Calculate Age</button>
-<div class="result" id="ageResult">Your age will appear here.</div>
+<div class="result" id="ageResult" aria-live="polite">Your age will appear here.</div>
+</section>
+</div>
+
+<section class="content-card">
+<h2>Free, simple tools for everyday tasks</h2>
+<p>QuickTools Hub brings useful online calculators and text utilities together in one place. Use the GST calculator to estimate tax, the percentage calculator for everyday maths, the discount calculator to find sale prices, or the age calculator to calculate the time since a date of birth. Text tools include a word counter and a case converter.</p>
+<p>Our goal is to make everyday calculations and text tasks quick and accessible on desktop, tablet and mobile devices. Choose a tool above and enter your values to get started.</p>
+<h3>Explore our tools</h3>
+<ul>
+<li><a href="#gst" onclick="showTool('gst',document.querySelector('[data-tool=gst]'))">GST Calculator</a> — estimate GST and the amount including tax.</li>
+<li><a href="#percent" onclick="showTool('percent',document.querySelector('[data-tool=percent]'))">Percentage Calculator</a> — calculate a percentage of a number.</li>
+<li><a href="#discount" onclick="showTool('discount',document.querySelector('[data-tool=discount]'))">Discount Calculator</a> — calculate savings and final price.</li>
+<li><a href="#age" onclick="showTool('age',document.querySelector('[data-tool=age]'))">Age Calculator</a> — calculate age in years, months and days.</li>
+<li><a href="#word" onclick="showTool('word',document.querySelector('[data-tool=word]'))">Word Counter</a> — count words, characters and sentences.</li>
+<li><a href="#case" onclick="showTool('case',document.querySelector('[data-tool=case]'))">Text Case Converter</a> — change text capitalization.</li>
+</ul>
 </section>
 
-</div>
+<section class="content-card faq">
+<h2>Frequently Asked Questions</h2>
+<details><summary>Are QuickTools Hub tools free to use?</summary><p>Yes. The tools on this website are available to use for free.</p></details>
+<details><summary>How do I calculate GST on an amount?</summary><p>Enter the amount before GST, select the applicable GST rate and press “Calculate GST”. The calculator shows the tax amount and total including GST.</p></details>
+<details><summary>How do I calculate a percentage of a number?</summary><p>Enter the percentage and the number, then select “Calculate Percentage”. The result is the percentage value of that number.</p></details>
+<details><summary>How can I find the price after a discount?</summary><p>Enter the original price and discount percentage. The calculator displays the discount amount and final price.</p></details>
+<details><summary>Can I use QuickTools Hub on my phone?</summary><p>Yes. The website is designed to work on mobile phones, tablets and desktop computers.</p></details>
+</section>
 </main>
 
 <footer>
-<p>© 2026 QuickTools Hub. All rights reserved.</p>
-<p>Free tools for everyday use.</p>
+<p>© 2026 QuickTools Hub. Free tools for everyday use.</p>
+<p>
+<a href="about.html">About Us</a>
+<a href="contact.html">Contact</a>
+<a href="privacy-policy.html">Privacy Policy</a>
+<a href="disclaimer.html">Disclaimer</a>
+</p>
 </footer>
 
 <script>
@@ -122,7 +161,7 @@ function showTool(id,card){
 document.querySelectorAll('.panel section').forEach(s=>s.classList.add('hidden'));
 document.getElementById(id).classList.remove('hidden');
 document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
-card.classList.add('active');
+if(card)card.classList.add('active');
 }
 function filterTools(){
 let q=document.getElementById('search').value.toLowerCase();
@@ -134,8 +173,7 @@ function countWords(){
 let t=document.getElementById('text').value;
 let words=t.trim()?t.trim().split(/\s+/).length:0;
 let sentences=t.trim()?t.split(/[.!?]+/).filter(s=>s.trim()).length:0;
-document.getElementById('wordResult').innerText=
-'Words: '+words+' | Characters: '+t.length+' | Sentences: '+sentences;
+document.getElementById('wordResult').innerText='Words: '+words+' | Characters: '+t.length+' | Sentences: '+sentences;
 }
 function convert(type){
 let t=document.getElementById('caseText').value;
@@ -145,39 +183,33 @@ if(type==='title')t=t.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
 document.getElementById('caseResult').innerText=t;
 }
 function percentage(){
-let p=Number(document.getElementById('percentValue').value);
-let n=Number(document.getElementById('percentTotal').value);
-if(!document.getElementById('percentValue').value||!document.getElementById('percentTotal').value)return alert('Enter both numbers');
-document.getElementById('percentResult').innerText=(p*n/100).toFixed(2);
+let pInput=document.getElementById('percentValue').value,nInput=document.getElementById('percentTotal').value;
+if(pInput===''||nInput==='')return alert('Enter both numbers');
+let p=Number(pInput),n=Number(nInput);
+document.getElementById('percentResult').innerText=(p*n/100).toLocaleString('en-IN',{maximumFractionDigits:2});
 }
 function gstCalc(){
-let a=Number(document.getElementById('gstAmount').value);
-let r=Number(document.getElementById('gstRate').value);
-if(!document.getElementById('gstAmount').value)return alert('Enter amount');
-let tax=a*r/100;
-document.getElementById('gstResult').innerText=
-'GST Amount: ₹'+tax.toFixed(2)+'\nTotal Amount: ₹'+(a+tax).toFixed(2);
+let input=document.getElementById('gstAmount').value;
+if(input===''||Number(input)<0)return alert('Enter a valid amount');
+let a=Number(input),r=Number(document.getElementById('gstRate').value),tax=a*r/100;
+document.getElementById('gstResult').innerText='GST Amount: ₹'+tax.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+'\nTotal Amount (including GST): ₹'+(a+tax).toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
 function discountCalc(){
-let p=Number(document.getElementById('price').value);
-let d=Number(document.getElementById('discountValue').value);
-if(!document.getElementById('price').value||!document.getElementById('discountValue').value||d<0||d>100)return alert('Enter valid values');
-document.getElementById('discountResult').innerText=
-'Discount: ₹'+(p*d/100).toFixed(2)+'\nFinal Price: ₹'+(p-p*d/100).toFixed(2);
+let pInput=document.getElementById('price').value,dInput=document.getElementById('discountValue').value;
+if(pInput===''||dInput===''||Number(pInput)<0||Number(dInput)<0||Number(dInput)>100)return alert('Enter a valid price and discount between 0 and 100');
+let p=Number(pInput),d=Number(dInput),saving=p*d/100,finalPrice=p-saving;
+document.getElementById('discountResult').innerText='Discount: ₹'+saving.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2})+'\nFinal Price: ₹'+finalPrice.toLocaleString('en-IN',{minimumFractionDigits:2,maximumFractionDigits:2});
 }
 function ageCalc(){
 let value=document.getElementById('dob').value;
 if(!value)return alert('Select your date of birth');
-let dob=new Date(value+'T00:00:00');
-let today=new Date();
+let dob=new Date(value+'T00:00:00'),today=new Date();
+today.setHours(0,0,0,0);
 if(dob>today)return alert('Date cannot be in the future');
-let years=today.getFullYear()-dob.getFullYear();
-let months=today.getMonth()-dob.getMonth();
-let days=today.getDate()-dob.getDate();
+let years=today.getFullYear()-dob.getFullYear(),months=today.getMonth()-dob.getMonth(),days=today.getDate()-dob.getDate();
 if(days<0){months--;days+=new Date(today.getFullYear(),today.getMonth(),0).getDate()}
 if(months<0){years--;months+=12}
-document.getElementById('ageResult').innerText=
-years+' Years, '+months+' Months, '+days+' Days';
+document.getElementById('ageResult').innerText=years+' Years, '+months+' Months, '+days+' Days';
 }
 </script>
 </body>
