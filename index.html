@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Free online calculators and text tools. Fast, simple and easy to use.">
+<title>QuickTools Hub - Free Online Tools</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f4f6fb;color:#172033}
+header{background:#172554;color:white;padding:25px 16px;text-align:center}
+header h1{margin:0;font-size:30px}
+header p{color:#dbeafe}
+main{max-width:950px;margin:25px auto;padding:15px}
+.search{width:100%;padding:14px;border:1px solid #ccd3df;border-radius:10px;font-size:16px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(145px,1fr));gap:12px;margin:20px 0}
+.card{background:white;border:1px solid #e0e5ee;border-radius:12px;padding:18px 10px;cursor:pointer;text-align:center;font-weight:bold}
+.card:hover,.card.active{border-color:#2563eb;background:#eff6ff}
+.panel{background:white;padding:22px;border-radius:14px;box-shadow:0 3px 15px #0000000b}
+.panel h2{margin-top:0}
+input,textarea,select{width:100%;padding:12px;margin:8px 0 14px;border:1px solid #ccd3df;border-radius:8px;font-size:16px}
+textarea{min-height:120px;resize:vertical}
+button{padding:12px 18px;border:0;border-radius:8px;background:#2563eb;color:white;font-size:15px;cursor:pointer}
+button:hover{background:#1d4ed8}
+.result{margin-top:15px;padding:14px;background:#eff6ff;border-radius:8px;white-space:pre-wrap;overflow-wrap:anywhere}
+footer{text-align:center;padding:25px;color:#64748b}
+footer a{color:#2563eb;margin:5px}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<header>
+<h1>⚡ QuickTools Hub</h1>
+<p>Free Online Tools – Fast, Simple & Easy</p>
+</header>
+
+<main>
+<input class="search" id="search" placeholder="Search a tool..." oninput="filterTools()">
+
+<div class="grid" id="tools">
+<div class="card active" data-tool="word" onclick="showTool('word',this)">📝 Word Counter</div>
+<div class="card" data-tool="case" onclick="showTool('case',this)">🔠 Case Converter</div>
+<div class="card" data-tool="percent" onclick="showTool('percent',this)">📊 Percentage</div>
+<div class="card" data-tool="gst" onclick="showTool('gst',this)">💰 GST Calculator</div>
+<div class="card" data-tool="discount" onclick="showTool('discount',this)">🏷️ Discount</div>
+<div class="card" data-tool="age" onclick="showTool('age',this)">🎂 Age Calculator</div>
+</div>
+
+<div class="panel">
+
+<section id="word">
+<h2>Word Counter</h2>
+<p>Count words, characters and sentences in your text.</p>
+<textarea id="text" placeholder="Type or paste your text here..." oninput="countWords()"></textarea>
+<div class="result" id="wordResult">Words: 0 | Characters: 0 | Sentences: 0</div>
+</section>
+
+<section id="case" class="hidden">
+<h2>Text Case Converter</h2>
+<textarea id="caseText" placeholder="Enter your text..."></textarea>
+<button onclick="convert('upper')">UPPERCASE</button>
+<button onclick="convert('lower')">lowercase</button>
+<button onclick="convert('title')">Title Case</button>
+<div class="result" id="caseResult"></div>
+</section>
+
+<section id="percent" class="hidden">
+<h2>Percentage Calculator</h2>
+<label>What is the percentage?</label>
+<input type="number" id="percentValue" placeholder="Enter percentage">
+<label>Of which number?</label>
+<input type="number" id="percentTotal" placeholder="Enter total">
+<button onclick="percentage()">Calculate</button>
+<div class="result" id="percentResult">Your answer will appear here.</div>
+</section>
+
+<section id="gst" class="hidden">
+<h2>GST Calculator</h2>
+<label>Amount (₹)</label>
+<input type="number" id="gstAmount" placeholder="Enter amount">
+<label>GST Rate</label>
+<select id="gstRate">
+<option value="5">5%</option>
+<option value="12">12%</option>
+<option value="18" selected>18%</option>
+<option value="28">28%</option>
+</select>
+<button onclick="gstCalc()">Calculate GST</button>
+<div class="result" id="gstResult">Your answer will appear here.</div>
+</section>
+
+<section id="discount" class="hidden">
+<h2>Discount Calculator</h2>
+<label>Original Price (₹)</label>
+<input type="number" id="price" placeholder="Enter price">
+<label>Discount (%)</label>
+<input type="number" id="discountValue" placeholder="Enter discount">
+<button onclick="discountCalc()">Calculate</button>
+<div class="result" id="discountResult">Your answer will appear here.</div>
+</section>
+
+<section id="age" class="hidden">
+<h2>Age Calculator</h2>
+<label>Date of Birth</label>
+<input type="date" id="dob">
+<button onclick="ageCalc()">Calculate Age</button>
+<div class="result" id="ageResult">Your age will appear here.</div>
+</section>
+
+</div>
+</main>
+
+<footer>
+<p>© 2026 QuickTools Hub. All rights reserved.</p>
+<p>Free tools for everyday use.</p>
+</footer>
+
+<script>
+function showTool(id,card){
+document.querySelectorAll('.panel section').forEach(s=>s.classList.add('hidden'));
+document.getElementById(id).classList.remove('hidden');
+document.querySelectorAll('.card').forEach(c=>c.classList.remove('active'));
+card.classList.add('active');
+}
+function filterTools(){
+let q=document.getElementById('search').value.toLowerCase();
+document.querySelectorAll('.card').forEach(c=>{
+c.style.display=c.innerText.toLowerCase().includes(q)?'block':'none';
+});
+}
+function countWords(){
+let t=document.getElementById('text').value;
+let words=t.trim()?t.trim().split(/\s+/).length:0;
+let sentences=t.trim()?t.split(/[.!?]+/).filter(s=>s.trim()).length:0;
+document.getElementById('wordResult').innerText=
+'Words: '+words+' | Characters: '+t.length+' | Sentences: '+sentences;
+}
+function convert(type){
+let t=document.getElementById('caseText').value;
+if(type==='upper')t=t.toUpperCase();
+if(type==='lower')t=t.toLowerCase();
+if(type==='title')t=t.toLowerCase().replace(/\b\w/g,c=>c.toUpperCase());
+document.getElementById('caseResult').innerText=t;
+}
+function percentage(){
+let p=Number(document.getElementById('percentValue').value);
+let n=Number(document.getElementById('percentTotal').value);
+if(!document.getElementById('percentValue').value||!document.getElementById('percentTotal').value)return alert('Enter both numbers');
+document.getElementById('percentResult').innerText=(p*n/100).toFixed(2);
+}
+function gstCalc(){
+let a=Number(document.getElementById('gstAmount').value);
+let r=Number(document.getElementById('gstRate').value);
+if(!document.getElementById('gstAmount').value)return alert('Enter amount');
+let tax=a*r/100;
+document.getElementById('gstResult').innerText=
+'GST Amount: ₹'+tax.toFixed(2)+'\nTotal Amount: ₹'+(a+tax).toFixed(2);
+}
+function discountCalc(){
+let p=Number(document.getElementById('price').value);
+let d=Number(document.getElementById('discountValue').value);
+if(!document.getElementById('price').value||!document.getElementById('discountValue').value||d<0||d>100)return alert('Enter valid values');
+document.getElementById('discountResult').innerText=
+'Discount: ₹'+(p*d/100).toFixed(2)+'\nFinal Price: ₹'+(p-p*d/100).toFixed(2);
+}
+function ageCalc(){
+let value=document.getElementById('dob').value;
+if(!value)return alert('Select your date of birth');
+let dob=new Date(value+'T00:00:00');
+let today=new Date();
+if(dob>today)return alert('Date cannot be in the future');
+let years=today.getFullYear()-dob.getFullYear();
+let months=today.getMonth()-dob.getMonth();
+let days=today.getDate()-dob.getDate();
+if(days<0){months--;days+=new Date(today.getFullYear(),today.getMonth(),0).getDate()}
+if(months<0){years--;months+=12}
+document.getElementById('ageResult').innerText=
+years+' Years, '+months+' Months, '+days+' Days';
+}
+</script>
+</body>
+</html>
